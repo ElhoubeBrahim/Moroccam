@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Settings
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+	<ion-list class="ion-padding">
+		<ion-select
+			[value]="lang$ | async"
+			label="Change language"
+			aria-label="Language"
+			(ionChange)="setLanguage($event)"
+			interface="action-sheet"
+			placeholder="Select a language">
+			<ion-select-option *ngFor="let lang of langs" [value]="lang">{{ lang }}</ion-select-option>
+		</ion-select>
+	</ion-list>
+
+</ion-content>

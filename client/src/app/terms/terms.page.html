@@ -1,0 +1,28 @@
+<ion-content [fullscreen]="true">
+	<ion-header [translucent]="true">
+		<ion-toolbar>
+			<ion-title> Terms </ion-title>
+		</ion-toolbar>
+	</ion-header>
+	<ion-content>
+
+		<pinch-zoom>
+			<canvas #canvas></canvas>
+		</pinch-zoom>
+
+		<div class="container">
+			<h1 class="header">Take a Picture 📷😁</h1>
+			<ion-fab
+				slot="fixed"
+				[vertical]=" (photo$ | async) ? 'bottom' : 'center'"
+				[horizontal]="(photo$ | async) ? 'end' : 'center'"
+				[edge]="true"
+				style="padding-bottom: 6em"
+			>
+				<ion-fab-button (click)="takePhoto()">
+					<ion-icon name="camera"></ion-icon>
+				</ion-fab-button>
+			</ion-fab>
+		</div>
+	</ion-content>
+</ion-content>

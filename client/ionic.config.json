@@ -1,0 +1,7 @@
+{
+  "name": "Moroccam",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

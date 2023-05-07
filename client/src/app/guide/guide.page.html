@@ -1,0 +1,200 @@
+<ion-content [fullscreen]="true">
+	<ion-header [translucent]="true">
+		<ion-toolbar>
+			<ion-title> Guide </ion-title>
+		</ion-toolbar>
+	</ion-header>
+	<ion-content>
+		<ion-img
+			*ngIf="photo$ | async as photo"
+			[src]="photo.dataUrl"
+			(ionImgDidLoad)="imageLoaded(modal)"
+		></ion-img>
+
+		<ion-modal
+			#modal
+			*ngIf="photo$ | async as photo"
+			[initialBreakpoint]="0.5"
+			[breakpoints]="[0.25, 0.5, 0.75, 1]"
+			handleBehavior="cycle"
+		>
+			<ng-template>
+				<ion-content class="ion-padding" *ngIf="facts; else loading">
+					<ion-segment #segment color="primary" value="facts">
+						<ion-segment-button value="facts">
+							<ion-label>Facts</ion-label>
+						</ion-segment-button>
+						<ion-segment-button value="activities">
+							<ion-label>Activities</ion-label>
+						</ion-segment-button>
+						<ion-segment-button value="restaurants">
+							<ion-label>Restaurants</ion-label>
+						</ion-segment-button>
+						<ion-segment-button value="hotels">
+							<ion-label>Hotels</ion-label>
+						</ion-segment-button>
+					</ion-segment>
+
+					<!-- Results Facts tab  -->
+					<div class="facts-stuff" *ngIf="segment.value === 'facts'">
+						<div class="row">
+							<ion-icon name="location" size="large"></ion-icon>
+							<h1 class="logo-title facts-stuff__title">
+								{{ facts.name }}
+							</h1>
+							<div class="spacer"></div>
+							<ion-icon name="volume-mute" size="large"></ion-icon>
+						</div>
+						<div class="row p-top">
+							<ion-icon name="compass"></ion-icon>
+							<h3 class="logo-title">{{ facts.city }}</h3>
+						</div>
+						<p class="facts-desc">{{ facts.description }}</p>
+
+						<h3 class="slider-title">Journey Through Time: A Collection of Memories</h3>
+						<swiper-container>
+							<swiper-slide *ngFor="let image of facts.images"><ion-img
+								src="{{image}}"
+								alt="The Wisconsin State Capitol building in Madison, WI at night"
+							></ion-img></swiper-slide>
+						  </swiper-container>
+
+						<h3 class="slider-title">Facts about this monument</h3>
+						<ul>
+							<li *ngFor="let information of facts.info">{{information}}</li>
+						</ul>
+
+						<div class="iframe-container">
+							<google-map
+								height="20rem"
+								width="100%"
+								[center]="{ lat: facts.location.lat, lng: facts.location.lng }"
+								[zoom]="15"
+							>
+								<map-marker
+									[options]="{
+										position: { lat: facts.location.lat, lng: facts.location.lng },
+										title: facts.name
+									}"
+								></map-marker>
+							</google-map>
+						</div>
+					</div>
+
+					<!-- Activities Facts tab  -->
+					<div
+						class="facts-stuff"
+						*ngIf="segment.value === 'activities'"
+					>
+						<ng-container *ngFor="let activity of facts.activities">
+							<ion-card>
+								<ion-card-header>
+									<div class="row">
+										<ion-icon
+											name="walk"
+											size="large"
+										></ion-icon>
+										<h1
+											class="logo-title facts-stuff__title"
+										>
+											{{ activity.name }}
+										</h1>
+									</div>
+								</ion-card-header>
+								<ion-card-content>
+									{{ activity.description }}
+								</ion-card-content>
+								<hr class="divider" />
+							</ion-card>
+						</ng-container>
+					</div>
+
+					<!-- restaurants Facts tab  -->
+					<div
+						class="facts-stuff"
+						*ngIf="segment.value === 'restaurants'"
+					>
+						<ng-container *ngFor="let restau of facts.restaurants">
+							<ion-card>
+								<img
+									alt="Silhouette of mountains"
+									src="{{ restau.image }}"
+								/>
+								<ion-card-header>
+									<ion-card-title
+										>{{ restau.name }}</ion-card-title
+									>
+									<ion-card-subtitle>
+										<div>
+											<ion-icon
+												name="star"
+												*ngFor="let x of getRating(restau.rating)"
+											></ion-icon>
+										</div>
+									</ion-card-subtitle>
+								</ion-card-header>
+
+								<ion-card-content>
+									{{ restau.description }}
+								</ion-card-content>
+							</ion-card>
+						</ng-container>
+					</div>
+
+					<!-- hotels Facts tab  -->
+					<div class="facts-stuff" *ngIf="segment.value === 'hotels'">
+
+
+						<ng-container *ngFor="let hotel of facts.hotels">
+							<ion-card>
+								<img
+									alt="Silhouette of mountains"
+									src="{{ hotel.image }}"
+								/>
+								<ion-card-header>
+									<ion-card-title
+										>{{ hotel.name }}</ion-card-title
+									>
+									<ion-card-subtitle>
+										<div>
+											<ion-icon
+												name="star"
+												*ngFor="let x of getRating(hotel.stars)"
+											></ion-icon>
+										</div>
+									</ion-card-subtitle>
+								</ion-card-header>
+
+								<ion-card-content>
+									{{ hotel.description }}
+								</ion-card-content>
+							</ion-card>
+						</ng-container>
+					</div>
+				</ion-content>
+				<ng-template #loading>
+					<ion-content class="ion-padding">
+						<div class="loading-container">
+							<ion-spinner></ion-spinner>
+						</div>
+					</ion-content>
+				</ng-template>
+			</ng-template>
+		</ion-modal>
+
+		<div class="container">
+			<h1 class="header">Take a Picture 📷😁</h1>
+			<ion-fab
+				slot="fixed"
+				[vertical]=" (photo$ | async) ? 'bottom' : 'center'"
+				[horizontal]="(photo$ | async) ? 'end' : 'center'"
+				[edge]="true"
+				style="padding-bottom: 6em"
+			>
+				<ion-fab-button (click)="takePhoto()">
+					<ion-icon name="camera"></ion-icon>
+				</ion-fab-button>
+			</ion-fab>
+		</div>
+	</ion-content>
+</ion-content>
