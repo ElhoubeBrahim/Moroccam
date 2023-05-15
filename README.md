@@ -143,10 +143,10 @@ Moroccam is intended to assist tourists, but there are a few limitations to cons
 <a href="https://www.linkedin.com/in/el-bachir-outidrarine/">![LinkedIn][linkedin-shield]</a>
 <a href="https://github.com/StoicBug/">![GitHub][github-shield]</a>
 
-**YOUSSED BEN SADIK :**
+**YOUSSEF BEN SADIK :**
 
-<a href="https://www.linkedin.com/in/youssefbensadik/">![LinkedIn][linkedin-shield]</a>
-<a href="https://github.com/sharry">![GitHub][github-shield]</a>
+<a href="https://links.bensadik.net/linkedin">![LinkedIn][linkedin-shield]</a>
+<a href="https://links.bensadik.net/github">![GitHub][github-shield]</a>
 
 [Node.js]: https://img.shields.io/badge/node.js-44883e?style=for-the-badge&logo=node.js&logoColor=white
 [Node.js-url]: https://nodejs.org/en/
